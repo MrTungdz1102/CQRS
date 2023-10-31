@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CQRS.Application.Features.LeaveType.Commands.UpdateLeaveType
+namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation
 {
-    public class UpdateLeaveAllocationCommand : IRequest<Unit>
+    public class CreateLeaveAllocationCommand : IRequest<int>
     {
-        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int DefaultDays { get; set; }
     }

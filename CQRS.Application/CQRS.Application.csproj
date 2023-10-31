@@ -19,4 +19,9 @@
     <ProjectReference Include="..\CQRS.Domain\CQRS.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\LeaveAllocation\Queries\" />
+    <Folder Include="Features\LeaveRequest\Queries\" />
+  </ItemGroup>
+
 </Project>

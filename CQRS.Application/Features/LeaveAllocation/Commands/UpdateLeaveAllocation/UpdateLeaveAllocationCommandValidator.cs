@@ -1,13 +1,13 @@
 ﻿using CQRS.Application.InterfaceContracts.Persistence;
 using FluentValidation;
 
-namespace CQRS.Application.Features.LeaveType.Commands.UpdateLeaveType
+namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation
 {
-    public class UpdateLeaveTypeCommandValidator : AbstractValidator<UpdateLeaveAllocationCommand>
+    public class UpdateLeaveAllocationCommandValidator : AbstractValidator<UpdateLeaveAllocationCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateLeaveTypeCommandValidator(IUnitOfWork unitOfWork)
+        public UpdateLeaveAllocationCommandValidator(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 

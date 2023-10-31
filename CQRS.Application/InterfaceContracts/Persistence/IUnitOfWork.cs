@@ -9,8 +9,12 @@ namespace CQRS.Application.InterfaceContracts.Persistence
 {
     public interface IUnitOfWork
     {
-        IRepository<LeaveAllocation> LeaveAllocationRepo { get; }
-        IRepository<LeaveRequest> LeaveRequestRepo { get; }
-        IRepository<LeaveType> LeaveTypeRepo { get; }
+        //IRepository<LeaveAllocation> LeaveAllocationRepo { get; }
+        //IRepository<LeaveRequest> LeaveRequestRepo { get; }
+        //IRepository<LeaveType> LeaveTypeRepo { get; }
+
+        ILeaveTypeRepository LeaveTypeRepo { get; }
+        ILeaveRequestRepository LeaveRequestRepo { get; }
+        ILeaveAllocationRepository LeaveAllocationRepo { get; }
     }
 }

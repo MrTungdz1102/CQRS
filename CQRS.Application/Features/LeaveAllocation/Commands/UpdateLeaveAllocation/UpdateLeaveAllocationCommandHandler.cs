@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CQRS.Application.Features.LeaveType.Commands.UpdateLeaveType
+namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation
 {
-    public class UpdateLeaveTypeCommandHandler : IRequestHandler<UpdateLeaveAllocationCommand, Unit>
+    public class UpdateLeaveAllocationCommandHandler : IRequestHandler<UpdateLeaveAllocationCommand, Unit>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public UpdateLeaveTypeCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
+        public UpdateLeaveAllocationCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;

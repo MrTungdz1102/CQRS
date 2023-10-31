@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CQRS.Application.Features.LeaveType.Commands.DeleteLeaveType
+namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation
 {
-    public class DeleteLeaveTypeCommandHandler : IRequestHandler<DeleteLeaveAllocationCommand, int>
+    public class DeleteLeaveAllocationCommandHandler : IRequestHandler<DeleteLeaveAllocationCommand, int>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public DeleteLeaveTypeCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
+        public DeleteLeaveAllocationCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;

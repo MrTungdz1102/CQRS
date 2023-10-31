@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CQRS.Application.Features.LeaveType.Commands.CreateLeaveType
+namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation
 {
-    public class CreateLeaveAllocationCommandValidator : AbstractValidator<CreateLeaveTypeCommand>
+    public class CreateLeaveAllocationCommandValidator : AbstractValidator<CreateLeaveAllocationCommand>
     {
         public CreateLeaveAllocationCommandValidator()
         {
