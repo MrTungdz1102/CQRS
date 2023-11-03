@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace CQRS.Application.Features.LeaveType.Commands.CreateLeaveType
 {
-    public class CreateLeaveAllocationCommandHandler : IRequestHandler<CreateLeaveTypeCommand, int>
+    public class CreateLeaveTypeCommandHandler : IRequestHandler<CreateLeaveTypeCommand, int>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public CreateLeaveAllocationCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
+        public CreateLeaveTypeCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
@@ -27,6 +27,7 @@ namespace CQRS.Application.Features.LeaveType.Commands.CreateLeaveType
             var validator = new CreateLeaveTypeCommandValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
             if (validationResult.Errors.Any()) throw new BadRequestException("Invalid LeaveType", validationResult);
+
             var leaveTypeCreate = _mapper.Map<Domain.Models.LeaveType>(request);
             await _unitOfWork.LeaveTypeRepo.AddAsync(leaveTypeCreate);
             return leaveTypeCreate.Id;

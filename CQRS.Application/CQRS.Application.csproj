@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Features\LeaveAllocation\Queries\" />
-    <Folder Include="Features\LeaveRequest\Queries\" />
+    <Folder Include="Features\LeaveRequest\" />
   </ItemGroup>
 
 </Project>

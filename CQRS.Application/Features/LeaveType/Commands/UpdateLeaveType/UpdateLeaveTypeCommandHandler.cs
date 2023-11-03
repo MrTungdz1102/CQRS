@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CQRS.Application.Features.LeaveType.Commands.UpdateLeaveType
 {
-    public class UpdateLeaveTypeCommandHandler : IRequestHandler<UpdateLeaveAllocationCommand, Unit>
+    public class UpdateLeaveTypeCommandHandler : IRequestHandler<UpdateLeaveTypeCommand, Unit>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -18,7 +18,7 @@ namespace CQRS.Application.Features.LeaveType.Commands.UpdateLeaveType
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-        public async Task<Unit> Handle(UpdateLeaveAllocationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateLeaveTypeCommand request, CancellationToken cancellationToken)
         {
             var updateLeaveType = _mapper.Map<Domain.Models.LeaveType>(request);
             await _unitOfWork.LeaveTypeRepo.UpdateAsync(updateLeaveType);

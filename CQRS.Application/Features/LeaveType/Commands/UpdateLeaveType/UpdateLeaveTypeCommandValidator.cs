@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CQRS.Application.Features.LeaveType.Commands.UpdateLeaveType
 {
-    public class UpdateLeaveTypeCommandValidator : AbstractValidator<UpdateLeaveAllocationCommand>
+    public class UpdateLeaveTypeCommandValidator : AbstractValidator<UpdateLeaveTypeCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
 

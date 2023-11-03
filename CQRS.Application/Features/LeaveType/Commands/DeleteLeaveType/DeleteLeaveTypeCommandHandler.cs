@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CQRS.Application.Features.LeaveType.Commands.DeleteLeaveType
 {
-    public class DeleteLeaveTypeCommandHandler : IRequestHandler<DeleteLeaveAllocationCommand, int>
+    public class DeleteLeaveTypeCommandHandler : IRequestHandler<DeleteLeaveTypeCommand, int>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -19,7 +19,7 @@ namespace CQRS.Application.Features.LeaveType.Commands.DeleteLeaveType
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-        public async Task<int> Handle(DeleteLeaveAllocationCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(DeleteLeaveTypeCommand request, CancellationToken cancellationToken)
         {
             var deleteLeaveType = await _unitOfWork.LeaveTypeRepo.GetByIdAsync(request.Id);
             if (deleteLeaveType == null) throw new NotFoundException(nameof(LeaveType), request.Id);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CQRS.Application.Features.LeaveType.Commands.DeleteLeaveType
 {
-    public class DeleteLeaveAllocationCommand : IRequest<int>
+    public class DeleteLeaveTypeCommand : IRequest<int>
     {
         public int Id { get; set; }
     }

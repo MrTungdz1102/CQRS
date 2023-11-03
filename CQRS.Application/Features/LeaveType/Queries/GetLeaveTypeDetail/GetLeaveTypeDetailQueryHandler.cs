@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CQRS.Application.InterfaceContracts.Infrastructure;
 using CQRS.Application.InterfaceContracts.Persistence;
 using MediatR;
 using System;
@@ -13,15 +14,19 @@ namespace CQRS.Application.Features.LeaveType.Queries.GetLeaveTypeDetail
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public GetLeaveTypeDetailQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
+        private readonly IAppLogger<GetLeaveTypeDetailQueryHandler> _logger;
+        public GetLeaveTypeDetailQueryHandler(IMapper mapper, IUnitOfWork unitOfWork, IAppLogger<GetLeaveTypeDetailQueryHandler> logger)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
         public async Task<LeaveTypeDetailDTO> Handle(GetLeaveTypeDetailQuery request, CancellationToken cancellationToken)
         {
             var leaveType = await _unitOfWork.LeaveTypeRepo.GetByIdAsync(request.Id);
-            return _mapper.Map<LeaveTypeDetailDTO>(leaveType);
+            var data =  _mapper.Map<LeaveTypeDetailDTO>(leaveType);
+            _logger.LogInformation("Leave type was retrieved successfully");
+            return data;
         }
     }
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace CQRS.Application.Features.LeaveType.Commands.CreateLeaveType
 {
-    public class CreateLeaveAllocationCommandValidator : AbstractValidator<CreateLeaveTypeCommand>
+    public class CreateLeaveTypeCommandValidator : AbstractValidator<CreateLeaveTypeCommand>
     {
-        public CreateLeaveAllocationCommandValidator()
+        public CreateLeaveTypeCommandValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage("{PropertyName} is required").NotNull().MaximumLength(50).WithMessage("{PropertyName} must be fewer than 50 characters");
 
