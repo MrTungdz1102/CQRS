@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation
+namespace CQRS.Application.Features.LeaveRequest.Commands.DeleteLeaveRequest
 {
-    public class DeleteLeaveAllocationCommand : IRequest<Unit>
+    public class DeleteLeaveRequestCommand : IRequest
     {
         public int Id { get; set; }
     }

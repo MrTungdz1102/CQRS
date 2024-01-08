@@ -23,7 +23,7 @@ namespace CQRS.Application.Features.LeaveType.Queries.GetLeaveTypeDetail
         }
         public async Task<LeaveTypeDetailDTO> Handle(GetLeaveTypeDetailQuery request, CancellationToken cancellationToken)
         {
-            var leaveType = await _unitOfWork.LeaveTypeRepo.GetByIdAsync(request.Id);
+            Domain.Models.LeaveType? leaveType = await _unitOfWork.LeaveTypeRepo.GetByIdAsync(request.Id);
             var data =  _mapper.Map<LeaveTypeDetailDTO>(leaveType);
             _logger.LogInformation("Leave type was retrieved successfully");
             return data;

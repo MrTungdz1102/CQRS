@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CQRS.Application.Features.LeaveType.Commands.CreateLeaveType;
+using CQRS.Application.Features.LeaveType.Commands.UpdateLeaveType;
 using CQRS.Application.Features.LeaveType.Queries.GetAllLeaveTypes;
 using CQRS.Application.Features.LeaveType.Queries.GetLeaveTypeDetail;
 using CQRS.Domain.Models;
@@ -16,6 +18,8 @@ namespace CQRS.Application.MappingProfiles
         {
             CreateMap<LeaveType, LeaveTypeDTO>().ReverseMap();
             CreateMap<LeaveType, LeaveTypeDetailDTO>().ReverseMap();
+            CreateMap<LeaveType, CreateLeaveTypeCommand>().ReverseMap();
+            CreateMap<LeaveType, UpdateLeaveTypeCommand>().ReverseMap();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CQRS.Application.Exceptions;
 using CQRS.Application.InterfaceContracts.Persistence;
 using MediatR;
 using System;
@@ -20,8 +21,14 @@ namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocati
         }
         public async Task<Unit> Handle(UpdateLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
-            var updateLeaveType = _mapper.Map<Domain.Models.LeaveType>(request);
-            await _unitOfWork.LeaveTypeRepo.UpdateAsync(updateLeaveType);
+            var validator = new UpdateLeaveAllocationCommandValidator(_unitOfWork);
+            var validateResult = await validator.ValidateAsync(request);
+            if (validateResult.Errors.Any()) throw new BadRequestException("Invalid Leave Allocation", validateResult);
+            var leaveAllocation = await _unitOfWork.LeaveAllocationRepo.GetByIdAsync(request.Id);
+            if (leaveAllocation is null)
+                throw new NotFoundException(nameof(LeaveAllocation), request.Id);
+            _mapper.Map(request, leaveAllocation);
+            await _unitOfWork.LeaveAllocationRepo.UpdateAsync(leaveAllocation);
             return Unit.Value;
         }
     }

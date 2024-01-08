@@ -11,17 +11,20 @@ namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocati
 {
     public class CreateLeaveAllocationCommandValidator : AbstractValidator<CreateLeaveAllocationCommand>
     {
-        public CreateLeaveAllocationCommandValidator()
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CreateLeaveAllocationCommandValidator(IUnitOfWork unitOfWork)
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("{PropertyName} is required").NotNull().MaximumLength(50).WithMessage("{PropertyName} must be fewer than 50 characters");
-
-            RuleFor(p => p.DefaultDays)
-           .LessThan(100).WithMessage("{PropertyName} cannot exceed 100")
-           .GreaterThan(0).WithMessage("{PropertyName} cannot be less than 1");
-
-            //RuleFor(q => q.Name)
-            //.MustAsync()
-            //.WithMessage("Leave type already exists");
+            _unitOfWork = unitOfWork;
+            RuleFor(p => p.LeaveTypeId)
+               .GreaterThan(0)
+               .MustAsync(LeaveTypeMustExist)
+               .WithMessage("{PropertyName} does not exist.");
+        }
+        private async Task<bool> LeaveTypeMustExist(int id, CancellationToken arg2)
+        {
+            var leaveType = await _unitOfWork.LeaveTypeRepo.GetByIdAsync(id);
+            return leaveType != null;
         }
     }  
 }

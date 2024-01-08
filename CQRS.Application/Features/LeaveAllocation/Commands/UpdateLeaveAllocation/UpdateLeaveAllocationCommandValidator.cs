@@ -11,20 +11,32 @@ namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocati
         {
             _unitOfWork = unitOfWork;
 
-            RuleFor(x => x.Id).MustAsync(async (id, cancellation) =>
-            {
-                var existedLeaveType = await _unitOfWork.LeaveTypeRepo.GetByIdAsync(id);
-                return existedLeaveType is null ? false : true;
-            }).WithMessage("ID Must be unique");
+            RuleFor(p => p.NumberOfDays)
+               .GreaterThan(0).WithMessage("{PropertyName} must greater than {ComparisonValue}");
 
-            RuleFor(p => p.Name)
-            .NotEmpty().WithMessage("{PropertyName} is required")
-            .NotNull()
-            .MaximumLength(70).WithMessage("{PropertyName} must be fewer than 70 characters");
+            RuleFor(p => p.Period)
+                .GreaterThanOrEqualTo(DateTime.Now.Year).WithMessage("{PropertyName} must be after {ComparisonValue}");
 
-            RuleFor(p => p.DefaultDays)
-            .LessThan(100).WithMessage("{PropertyName} cannot exceed 100")
-            .GreaterThan(1).WithMessage("{PropertyName} cannot be less than 1");
+            RuleFor(p => p.LeaveTypeId)
+                .GreaterThan(0)
+                .MustAsync(LeaveTypeMustExist)
+                .WithMessage("{PropertyName} does not exist.");
+
+            RuleFor(p => p.Id)
+                .NotNull()
+                .MustAsync(LeaveAllocationMustExist)
+                .WithMessage("{PropertyName} must be present");
+        }
+        private async Task<bool> LeaveAllocationMustExist(int id, CancellationToken arg2)
+        {
+            var leaveAllocation = await _unitOfWork.LeaveAllocationRepo.GetByIdAsync(id);
+            return leaveAllocation != null;
+        }
+
+        private async Task<bool> LeaveTypeMustExist(int id, CancellationToken arg2)
+        {
+            var leaveType = await _unitOfWork.LeaveTypeRepo.GetByIdAsync(id);
+            return leaveType != null;
         }
     }
 }

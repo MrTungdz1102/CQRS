@@ -1,4 +1,7 @@
 ﻿using CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation;
+using CQRS.Application.Features.LeaveType.Commands.CreateLeaveType;
+using CQRS.Application.Features.LeaveType.Commands.DeleteLeaveType;
+using CQRS.Application.Features.LeaveType.Commands.UpdateLeaveType;
 using CQRS.Application.Features.LeaveType.Queries.GetAllLeaveTypes;
 using CQRS.Application.Features.LeaveType.Queries.GetLeaveTypeDetail;
 using MediatR;
@@ -35,23 +38,25 @@ namespace CQRS.API.Controllers
 
         // POST api/<LeaveTypeController>
         [HttpPost]
-        public async Task<ActionResult> Post(CreateLeaveAllocationCommand request)
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public async Task<int> Post(CreateLeaveTypeCommand command)
         {
-            int response =  await _mediator.Send(request);
-            return CreatedAtAction(nameof(Get), new { id = response });
+            return await _mediator.Send(command);
         }
 
         // PUT api/<LeaveTypeController>/5
-        [HttpPut("{id}")]
-        public async Task<Unit> Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<ActionResult<Unit>> Put(UpdateLeaveTypeCommand command)
         {
-            return await _mediator.Send(new UpdateLeaveAllocationCommand());
+            return Ok(await _mediator.Send(command));
         }
 
         // DELETE api/<LeaveTypeController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<int> Delete(int id)
         {
+            return await _mediator.Send(new DeleteLeaveTypeCommand { Id = id});
         }
     }
 }

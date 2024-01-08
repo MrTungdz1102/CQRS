@@ -17,7 +17,7 @@ namespace CQRS.Application.Features.LeaveType.Commands.CreateLeaveType
 
             RuleFor(p => p.DefaultDays)
            .LessThan(100).WithMessage("{PropertyName} cannot exceed 100")
-           .GreaterThan(0).WithMessage("{PropertyName} cannot be less than 1");
+           .GreaterThan(1).WithMessage("{PropertyName} cannot be less than 1");
 
             //RuleFor(q => q.Name)
             //.MustAsync()

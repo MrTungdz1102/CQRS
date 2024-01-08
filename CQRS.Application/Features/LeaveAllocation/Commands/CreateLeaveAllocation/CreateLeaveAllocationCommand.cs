@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace CQRS.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation
 {
-    public class CreateLeaveAllocationCommand : IRequest<int>
+    public class CreateLeaveAllocationCommand : IRequest<Unit>
     {
-        public string Name { get; set; } = string.Empty;
-        public int DefaultDays { get; set; }
+        public int LeaveTypeId { get; set; }
     }
 }
