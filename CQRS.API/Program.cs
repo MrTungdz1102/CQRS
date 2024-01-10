@@ -1,3 +1,4 @@
+using CQRS.API.Middleware;
 using CQRS.Application;
 using CQRS.Infrastructure;
 using CQRS.Persistence;
@@ -17,6 +18,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("all", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

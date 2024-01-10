@@ -19,9 +19,10 @@ namespace CQRS.Application.Features.LeaveRequest.Queries.GetListLeaveRequest
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<List<ListLeaveRequestDTO>> Handle(GetListLeaveRequestQuery request, CancellationToken cancellationToken)
+
+        public Task<List<ListLeaveRequestDTO>> Handle(GetListLeaveRequestQuery request, CancellationToken cancellationToken)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }
