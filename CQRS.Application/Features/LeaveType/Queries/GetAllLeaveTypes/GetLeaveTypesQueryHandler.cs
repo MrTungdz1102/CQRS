@@ -12,19 +12,22 @@ namespace CQRS.Application.Features.LeaveType.Queries.GetAllLeaveTypes
     public class GetLeaveTypesQueryHandler : IRequestHandler<GetLeaveTypesQuery, List<LeaveTypeDTO>>
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
+        //  private readonly IUnitOfWork _unitOfWork;
+        private readonly ILeaveTypeRepository _leaveTypeRepository;
 
-        public GetLeaveTypesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
+        public GetLeaveTypesQueryHandler(IMapper mapper, ILeaveTypeRepository leaveTypeRepository)
         {
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            // _unitOfWork = unitOfWork;
+            _leaveTypeRepository = leaveTypeRepository;
         }
         public async Task<List<LeaveTypeDTO>> Handle(GetLeaveTypesQuery request, CancellationToken cancellationToken)
         {
             // Query the database
             // convert data object to DTO
             // return DTO
-            var leaveTypes = await _unitOfWork.LeaveTypeRepo.ListAsync();
+            // var leaveTypes = await _unitOfWork.LeaveTypeRepo.ListAsync();
+            var leaveTypes = await _leaveTypeRepository.ListAsync();
             return _mapper.Map<List<LeaveTypeDTO>>(leaveTypes);           
         }
     }
