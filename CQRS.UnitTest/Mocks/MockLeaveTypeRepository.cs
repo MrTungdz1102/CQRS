@@ -11,7 +11,7 @@ namespace CQRS.UnitTest.Mocks
 {
     public class MockLeaveTypeRepository
     {
-        public static Mock<ILeaveTypeRepository> GetMockLeaveTypeRepository()
+        public static Mock<IUnitOfWork> GetMockLeaveTypeRepository()
         {
             var leaveTypes = new List<LeaveType>
             {
@@ -34,12 +34,12 @@ namespace CQRS.UnitTest.Mocks
                     Name = "Test Maternity"
                 }
             };
-            var mockRepo = new Mock<ILeaveTypeRepository>();
+            var mockRepo = new Mock<IUnitOfWork>();
          //   var mockRepo = new Mock<IUnitOfWork>();
-            mockRepo.Setup(x => x.ListAsync(default)).ReturnsAsync(leaveTypes);
+            mockRepo.Setup(x => x.LeaveTypeRepo.ListAsync(default)).ReturnsAsync(leaveTypes);
             // _mockOrderRepository.Setup(x => x.ListAsync(It.IsAny<ISpecification<Order>>(), default)).ReturnsAsync(new List<Order> { order });
 
-            mockRepo.Setup(x => x.AddAsync(It.IsAny<LeaveType>(), default)).Returns((LeaveType leaveType, CancellationToken cancellationToken) =>
+            mockRepo.Setup(x => x.LeaveTypeRepo.AddAsync(It.IsAny<LeaveType>(), default)).Returns((LeaveType leaveType, CancellationToken cancellationToken) =>
             {
                 leaveTypes.Add(leaveType);
                 return Task.FromResult(leaveType);

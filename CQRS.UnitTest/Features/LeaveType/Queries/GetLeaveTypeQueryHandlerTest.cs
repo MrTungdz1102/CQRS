@@ -17,7 +17,7 @@ namespace CQRS.UnitTest.Features.LeaveType.Queries
 {
     public class GetLeaveTypeQueryHandlerTest
     {
-        private readonly Mock<ILeaveTypeRepository> _mockRepo;
+        private readonly Mock<IUnitOfWork> _mockRepo;
         private readonly IMapper _mapper;
         private readonly Mock<IAppLogger<GetLeaveRequestDetailQueryHandler>> _logger;
 
