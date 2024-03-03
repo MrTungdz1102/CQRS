@@ -15,6 +15,7 @@ using CQRS.BlazorUI;
 using CQRS.BlazorUI.Shared;
 using CQRS.BlazorUI.InterfaceContracts;
 using CQRS.BlazorUI.Models.LeaveType;
+using Blazored.Toast.Services;
 
 namespace CQRS.BlazorUI.Pages.LeaveType
 {
@@ -27,8 +28,8 @@ namespace CQRS.BlazorUI.Pages.LeaveType
         public ILeaveTypeService LeaveTypeService { get; set; }
         [Inject]
         public ILeaveAllocationService LeaveAllocationService { get; set; }
-     //   [Inject]
-     //   IToastService toastService { get; set; }
+        [Inject]
+        IToastService toastService { get; set; }
         public List<LeaveTypeVM> LeaveTypes { get; private set; }
         public string Message { get; set; } = string.Empty;
 
@@ -58,7 +59,7 @@ namespace CQRS.BlazorUI.Pages.LeaveType
             var response = await LeaveTypeService.DeleteLeaveType(id);
             if (response.Success)
             {
-           //     toastService.ShowSuccess("Leave Type deleted Successfully");
+                toastService.ShowSuccess("Leave Type deleted Successfully");
                 await OnInitializedAsync();
             }
             else
