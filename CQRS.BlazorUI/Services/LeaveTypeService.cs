@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Blazored.LocalStorage;
 using CQRS.BlazorUI.InterfaceContracts;
 using CQRS.BlazorUI.Models.LeaveType;
 using CQRS.BlazorUI.Services.Base;
@@ -9,7 +10,7 @@ namespace CQRS.BlazorUI.Services
     {
         private readonly IMapper _mapper;
 
-        public LeaveTypeService(IClient client, IMapper mapper) : base(client)
+        public LeaveTypeService(IClient client, ILocalStorageService localStorageService, IMapper mapper) : base(client, localStorageService)
         {
             _mapper = mapper;
         }
@@ -17,6 +18,7 @@ namespace CQRS.BlazorUI.Services
         public async Task<Response<Guid>> CreateLeaveType(LeaveTypeVM leaveType)
         {
             try {
+                await AddBearerToken();
                 var createCommand = _mapper.Map<CreateLeaveTypeCommand>(leaveType);
                 await _client.LeaveTypePOSTAsync(createCommand);
                 return new Response<Guid>
@@ -32,6 +34,7 @@ namespace CQRS.BlazorUI.Services
         {
             try
             {
+                await AddBearerToken();
                 await _client.LeaveTypeDELETEAsync(id);
                 return new Response<Guid>
                 {
@@ -46,12 +49,14 @@ namespace CQRS.BlazorUI.Services
 
         public async Task<LeaveTypeVM> GetLeaveTypeDetails(int id)
         {
+            await AddBearerToken();
             var leaveType = await _client.LeaveTypeGETAsync(id);
             return _mapper.Map<LeaveTypeVM>(leaveType);
         }
 
         public async Task<List<LeaveTypeVM>> GetLeaveTypes()
         {
+            await AddBearerToken();
             var leaveTypes = await _client.LeaveTypeAllAsync();
             return _mapper.Map<List<LeaveTypeVM>>(leaveTypes);
         }
@@ -60,6 +65,7 @@ namespace CQRS.BlazorUI.Services
         {
             try
             {
+                await AddBearerToken();
                 var updateCommand = _mapper.Map<UpdateLeaveTypeCommand>(leaveType);
                 await _client.LeaveTypePUTAsync(updateCommand);
                 return new Response<Guid>

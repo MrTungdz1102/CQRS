@@ -1,5 +1,6 @@
 using CQRS.API.Middleware;
 using CQRS.Application;
+using CQRS.Identity;
 using CQRS.Infrastructure;
 using CQRS.Persistence;
 
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationService();
 builder.Services.AddInfrastructureService(builder.Configuration);
 builder.Services.AddPersistenceService(builder.Configuration);
+builder.Services.AddIdentityService(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -29,7 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors("all");
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

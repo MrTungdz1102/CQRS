@@ -1,11 +1,12 @@
-﻿using CQRS.BlazorUI.InterfaceContracts;
+﻿using Blazored.LocalStorage;
+using CQRS.BlazorUI.InterfaceContracts;
 using CQRS.BlazorUI.Services.Base;
 
 namespace CQRS.BlazorUI.Services
 {
     public class LeaveAllocationService : BaseHttpService, ILeaveAllocationService
     {
-        public LeaveAllocationService(IClient client) : base(client)
+        public LeaveAllocationService(IClient client, ILocalStorageService localStorageService) : base(client, localStorageService)
         {
         }
 

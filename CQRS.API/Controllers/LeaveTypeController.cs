@@ -5,6 +5,7 @@ using CQRS.Application.Features.LeaveType.Commands.UpdateLeaveType;
 using CQRS.Application.Features.LeaveType.Queries.GetAllLeaveTypes;
 using CQRS.Application.Features.LeaveType.Queries.GetLeaveTypeDetail;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,6 +14,7 @@ namespace CQRS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LeaveTypeController : ControllerBase
     {
         private readonly IMediator _mediator;
